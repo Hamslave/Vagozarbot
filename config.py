@@ -1,4 +1,11 @@
-TOKEN = "7706082956:AAHf1EjLA23ExPX5LEHagieINB1M0C0QbBs"
-SHEET_ID = "1I2pYdkI4_KOtaVi6Xj3Yn2EsrW32z13cRcPSYBROAa0"
-CREDENTIALS_FILE = "credentials.json"  # 🔹 نام فایل JSON احراز هویت گوگل
-ADMIN_IDS = [677873313, 7860972907]
+import os
+
+# دریافت توکن و شیت آیدی از متغیرهای محیطی
+TOKEN = os.environ.get("TOKEN")
+SHEET_ID = os.environ.get("SHEET_ID")
+
+# در صورت نیاز می‌توانید اعتبار سنجی کنید که این مقادیر مقداردهی شده‌اند
+if not TOKEN:
+    raise ValueError("TOKEN is not set in the environment variables")
+if not SHEET_ID:
+    raise ValueError("SHEET_ID is not set in the environment variables")
