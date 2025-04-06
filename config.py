@@ -1,20 +1,16 @@
 import os
+import json
 
-# دریافت توکن و شیت آیدی از متغیرهای محیطی
-TOKEN = os.environ.get("TOKEN")
+# گرفتن اطلاعات از متغیرهای محیطی
+TOKEN = os.environ.get("BOT_TOKEN")
 SHEET_ID = os.environ.get("SHEET_ID")
+ADMIN_IDS = [677873313, 7860972907]  # می‌تونی اینم از env بگیری ولی فعلاً باشه
 
-# در صورت نیاز می‌توانید اعتبار سنجی کنید که این مقادیر مقداردهی شده‌اند
-if not TOKEN:
-    raise ValueError("TOKEN is not set in the environment variables")
-if not SHEET_ID:
-    raise ValueError("SHEET_ID is not set in the environment variables")
-import os
+CREDENTIALS_FILE = "credentials.json"
 
-# دریافت محتوای کلید گوگل از متغیر محیطی
-google_credentials = os.environ.get("CREDENTIALS_FILE")
-if google_credentials:
-    # اگر در متغیر محیطی خط‌های جدید به صورت "\\n" ذخیره شده‌اند، آن‌ها را به "\n" تبدیل می‌کنیم.
-    google_credentials = google_credentials.replace('\\n', '\n')
-    with open("credentials.json", "w") as f:
-        f.write(google_credentials)
+# اگر فایل credentials.json وجود نداشت، از محیط بسازش
+if not os.path.exists(CREDENTIALS_FILE):
+    credentials_content = os.environ.get("CREDENTIALS_JSON")
+    if credentials_content:
+        with open(CREDENTIALS_FILE, "w") as f:
+            f.write(credentials_content)
